@@ -1,0 +1,120 @@
+<%- include ("./parts/header.ejs") %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+<link rel="stylesheet" href="/css/homePage.css">
+
+<div class="content font-myfont">      
+    <div class="topBanner">
+	</div >
+
+    <div class="container mx-auto -mt-72">
+        <div class="w-full text-center mb-8 px-10">
+            <h1 class="text-white textGlow tracking-wide uppercase text-3xl font-bold sm:text-4xl">
+                Pathfinding Robot Visualiser
+            </h1>
+            <p class="text-sm tracking-widest text-white">A tool to visualize pathfinding algorithms
+                using real-life scenarios completed by a robot car.</p>
+        </div>
+        
+        <div id="cards-grid" class="mb-6 md:mb-20 container mx-auto max-w-xl grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-24">
+            <div id="simulate-card">
+                <style>
+                button {
+                background-color: #6617cb;
+                background-image: linear-gradient(315deg, #6617cb 0%, #cb218e 74%);
+                box-shadow: 0 0 0 0 #ec008c, 0.2rem 0.2rem 30px #6617cb;
+                }
+                button:hover {
+                box-shadow: 0 0 0 0 #ec008c, 0.2rem 0.2rem 60px #6617cb;
+                }
+                </style>
+            <div class="container mx-auto max-w-xs rounded-lg overflow-hidden shadow-lg my-2 bg-white">
+                <div class="relative mb-6">
+                <img class="w-full h-72 bg-purple-400" src=""
+                    alt="Simulate" />
+                <div class="text-center absolute w-full" style="bottom: -30px">
+                    <div class="mb-3">
+                        <p class="text-white tracking-wide uppercase text-lg font-bold">Simulate</p>
+                        <p class="text-gray-400 text-sm">New Scenario</p>
+                    </div>
+                    <button onclick="location.href='/simulate/';" class="p-4 rounded-full transition ease-in duration-200 focus:outline-none">
+                        <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" class="w-6 h-6">
+                            <path fill="#FFFFFF" d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
+                            C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
+                            C15.952,9,16,9.447,16,10z" />
+                        </svg>
+                    </button>
+                </div>
+                </div>
+                <div class="py-5 px-6 text-center tracking-wide">
+                    <div class="posts">
+                        <p class="text-sm">Use our tool to create a simulated scenario by drawing on a grid.</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div id="capture-card">
+                <style>
+                button {
+                background-color: #6617cb;
+                background-image: linear-gradient(315deg, #6617cb 0%, #cb218e 74%);
+                box-shadow: 0 0 0 0 #ec008c, 0.2rem 0.2rem 30px #6617cb;
+                }
+                button:hover {
+                box-shadow: 0 0 0 0 #ec008c, 0.2rem 0.2rem 60px #6617cb;
+                }
+            </style>
+            <div class="container mx-auto max-w-xs rounded-lg overflow-hidden shadow-lg my-2 bg-white">
+                <div class="relative mb-6">
+                    <img class="w-full h-72 bg-purple-400" src=""
+                    alt="Capture" />
+                <div class="text-center absolute w-full" style="bottom: -30px">
+                    <div class="mb-3">
+                        <p class="text-white tracking-wide uppercase text-lg font-bold">Capture</p>
+                        <p class="text-gray-400 text-sm">Real-life Scenario</p>
+                    </div>
+                    <button onclick="location.href='/capture/';" class="p-4 rounded-full transition ease-in duration-200 focus:outline-none">
+                        <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" class="w-6 h-6">
+                            <path fill="#FFFFFF" d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
+                            C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
+                            C15.952,9,16,9.447,16,10z" />
+                        </svg>
+                    </button>
+                </div>
+                </div>
+                <div class="py-5 px-6 text-center tracking-wide">
+                <div class="posts">
+                    <p class="text-sm">Upload a photo or use your camera to capture a real-life scene.</p>
+                </div>
+            </div>
+            </div>
+    
+        
+            </div>
+        </div>
+
+        <div id="capture-card">
+
+        <div class="mb-20 container mx-auto max-w-xs md:max-w-xl rounded-lg overflow-hidden shadow-lg my-2 bg-white">
+            <div class="relative video-container">
+                <iframe src="https://www.youtube.com/embed/ySN5Wnu88nE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="py-5 px-6 text-center tracking-wide">
+            <div class="posts">
+                <p class="text-sm">Demo Tutorial</p>
+            </div>
+        </div>
+        </div>
+
+    
+        </div>
+      
+    </div> 
+</div>
+<footer class="footer flex py-2 font-myfont"> 
+    <p class="text-white text-md px-5">Made with ❤️ by Mohamed Alganzory</p> 
+    <a href="https://github.com/alganzory" title="Github" target="_blank"><i class="fa-github fab icon text-white"></i></a> 
+</footer>
+
+<%- include ("./parts/footer.ejs") %>
+
