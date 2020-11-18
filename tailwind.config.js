@@ -133,6 +133,9 @@ module.exports = {
         800: '#97266d',
         900: '#702459',
       },
+      pinkishPurple: {
+        100: '#981BA3'
+      }
     },
     spacing: {
       px: '1px',
@@ -354,6 +357,7 @@ module.exports = {
       '4xl': '56rem',
       '5xl': '64rem',
       '6xl': '72rem',
+      'grid': '300px', //custom: used to size the div componenet holding the grid
       full: '100%',
       ...breakpoints(theme('screens')),
     }),

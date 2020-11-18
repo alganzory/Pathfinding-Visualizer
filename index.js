@@ -26,6 +26,13 @@ app.use(express.static(path.join(__dirname, "assets")));
 app.use(express.static(path.join(__dirname, "images")));
 
 app.use(flash());
+
+app.get ('/simulate', (req,res,next) => {
+    res.render ('simulate', {
+      pageTitle: 'Simulate'
+    })
+})
+
 app.use ('/', (req,res,next) => {
     res.render('home', {
         pageTitle: 'Home'

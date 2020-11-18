@@ -1,0 +1,30 @@
+<%- include ("./parts/header.ejs") %>
+<link rel="stylesheet" href="/css/custom.css">
+<script defer src="/js/p5.min.js"></script>
+<script src="/js/algorithms/graphDS.js"></script>
+<script src="/js/sketches/board.js"></script>
+
+<div class="content font-myfont">
+    <div class="secondaryBanner">
+	</div >
+
+    <div class="container mx-auto -mt-56">
+        <div class="w-full text-center mb-8 px-10">
+            <h2 class="text-white textGlow tracking-wide uppercase text-2xl font-bold sm:text-4xl">
+                Simulation drawing tool
+            </h2>
+            <% modalButton = "How-To" %> 
+            <% modalHeader= "How-To" %> 
+            <% modalContent= "1. Drag to move source cell (Robot) and click on it to rotate it <br> 2. Drag to move destination cell (Target).<br>3. Click on a cell to fill it with an obstacle (click again to empty it)." %> 
+            <%- include ("./parts/modal.ejs") %>
+        </div>
+    </div>
+
+    <div >
+        <div id="board-holder" class="mb-20 container mx-auto max-w-grid  rounded-lg  shadow-lg my-2 bg-white">
+         
+        </div>
+    </div>
+</div>
+
+<%- include ("./parts/footer.ejs") %>
