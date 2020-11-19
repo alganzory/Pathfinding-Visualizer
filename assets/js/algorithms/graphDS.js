@@ -1,21 +1,17 @@
- const rows = 6;
- const columns = 6;
+ const rows = 7;
+ const columns = 7;
  const gridLength = 300; //in pixels
 
 
 function Graph () {
     this.rows = rows;
     this.columns = columns;
+    
     this.nodeLength = gridLength/rows;
     
-    this.startNode = { //arbitrary initial values
-        i:1,
-        j:1
-    }
-    this.endNode = { //arbitrary initial values
-        i:4,
-        j:4,
-    }
+    this.startNode;
+
+    this.endNode;
 
     this.obstacleNodes = []
     this.grid = new Array (this.rows);
@@ -24,51 +20,71 @@ function Graph () {
         this.grid[i] = new Array(this.columns);
     }
 
-    this.setStartNode = (i,j) => {
-        this.startNode = {
-            i:i,
-            j:j
-        }
-        this.grid[i][j].isSource = true;
-        this.grid[i][j].isDestination = false;
-        this.grid[i][j].isObstacle = false;
-        this.grid[i][j].isEmpty = false;
+    this.setStartNode = (node) => {
+        this.startNode = node;
+        this.startNode.isSource = true;
+        this.startNode.isDestination = false;
+        this.startNode.isObstacle = false;
+        this.startNode.isEmpty = false;
     }
 
-    this.setEndNode = (i,j) => {
-        this.endNode = {
-            i:i,
-            j:j
-        }
-        this.grid[i][j].isSource = false;
-        this.grid[i][j].isDestination = true;
-        this.grid[i][j].isObstacle = false;
-        this.grid[i][j].isEmpty = false;
-    }
-
-    this.setEndNode = (i,j) => {
-        this.endNode = {
-            i:i,
-            j:j
-        }
-        this.grid[i][j].isSource = false;
-        this.grid[i][j].isDestination = true;
-        this.grid[i][j].isObstacle = false;
-        this.grid[i][j].isEmpty = false;
-    }
-
-    this.addObstacleNode = (i,j) => {
-        this.obstacleNodes.push ({
-            i:i,
-            j:j
-        })
-        this.grid[i][j].isSource = false;
-        this.grid[i][j].isDestination = false;
-        this.grid[i][j].isObstacle = true;
-        this.grid[i][j].isEmpty = false;
+    this.setEndNode = (node) => {
+        this.endNode = node;
+        this.endNode.isSource = false;
+        this.endNode.isDestination = true;
+        this.endNode.isObstacle = false;
+        this.endNode.isEmpty = false;
     }
 
 
+    this.addObstacleNode = (node) => {
+        node.isSource = false;
+        node.isDestination = false;
+        node.isObstacle = true;
+        node.isEmpty = false;
+        this.obstacleNodes.push (node)
+    }
+
+
+}
+var graph = new Graph();
+    
+// populating the grid with the nodes
+for (let i = 0; i < graph.grid.length; i++) {
+    for (let j = 0; j < graph.grid[i].length; j++) {
+        graph.grid[i][j] = new Node (i,j);        
+    }
+}
+
+// adding the neighbours for every node
+for (let i = 0; i < graph.grid.length; i++) {
+    for (let j = 0; j < graph.grid[i].length; j++) {
+        // up
+        if (i > 0)
+        graph.grid[i][j].neighbours.push(graph.grid[i-1][j]);
+       // down
+        if (i < rows -1)
+        graph.grid[i][j].neighbours.push(graph.grid[i+1][j]);
+        // left 
+        if (j > 0)
+        graph.grid[i][j].neighbours.push(graph.grid[i][j-1]);
+        // right 
+        if (j < columns -1)
+        graph.grid[i][j].neighbours.push(graph.grid[i][j+1]);
+        // top right
+        if (i > 0 && j < columns -1)
+        graph.grid[i][j].neighbours.push(graph.grid[i-1][j+1]);
+        // top left
+        if (i > 0 && j > 0)
+        graph.grid[i][j].neighbours.push(graph.grid[i-1][j-1]);
+        // bottom right
+        if (i < rows -1 && j < columns -1)
+        graph.grid[i][j].neighbours.push(graph.grid[i+1][j+1]);
+        // bottom left       
+        if ( i < rows -1 && j > 0) 
+        graph.grid[i][j].neighbours.push(graph.grid[i+1][j-1]);
+        console.log(graph.grid[i][j]);
+    }
 }
 
  function Node (i,j) {
@@ -86,7 +102,14 @@ function Graph () {
     this.isDestination = false;
     this.isObstacle = false;
     this.isEmpty = true;
-    
+    this.isVisited = false;
+  
+
+    // info for algorithms:
+    this.depth = -1;
+    this.parent = this;
+    this.inPath = false;
+
     this.draw = fillColor => {
         if (this.isObstacle) {
             fill(100);
@@ -95,43 +118,15 @@ function Graph () {
         } else if (this.isDestination) {
             colorMode(HSB);
             fill(255, 204, 100);
-        } else {
+        } else if (this.isEmpty) {
             fill(255)
-        }  
-
-        console.log (this.x, this.y)
-        console.log (graph.nodeLength)
+        } else if (this.isVisited && !this.inPath) {
+            fill('cyan')    
+        }
+        else if (this.inPath){
+            fill (fillColor)
+        }
         rect(this.x, this.y, graph.nodeLength,graph.nodeLength);
     }
-}
 
-var graph = new Graph();
-
-// populating the grid with the nodes
-for (let i = 0; i < graph.grid.length; i++) {
-    for (let j = 0; j < graph.grid[i].length; j++) {
-        graph.grid[i][j] = new Node (i,j);        
-    }
-}
-
-for (let i = 0; i < graph.grid.length; i++) {
-    for (let j = 0; j < graph.grid[i].length; j++) {
-        graph.grid[i][j].neighbours = 
-        graph.grid.filter (function (node) {
-
-            node !== graph.grid[i][j] //can't be its own neighbour
-            && ( 
-            node.j === j && node.i ===i-1|| //up
-            node.j === j && node.j ===i+1|| //down
-            node.i === i && node.j ===j-1|| //left 
-            node.i === i && node.j ===j+1|| //right
-            node.i === i-1 && node.j ===j-1|| //top left
-            node.i === i-1 && node.j ===j+1|| //top right
-            node.i === i+1 && node.j ===j-1|| //bottom left
-            node.i === i+1 && node.j ===j+1 //bottom right
-            )
-        })
-        
-    }
-    
 }
