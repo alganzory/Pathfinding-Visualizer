@@ -1,7 +1,9 @@
 var sol;
-
-var path = []
-
+var source;
+var destination;
+var queue = new Queue();
+var parent;
+var path= [];
 
 function setup() {
 
@@ -13,9 +15,9 @@ function setup() {
   strokeWeight(2);
 
   // example problems
-  graph.setStartNode(graph.grid[1][2]);
-  graph.setEndNode(graph.grid[6][4]);
-//   graph.addObstacleNode(graph.grid[3][2])
+  graph.setStartNode(graph.grid[8][7]);
+  graph.setEndNode(graph.grid[13][9]);
+ graph.addObstacleNode(graph.grid[10][7])
 //   graph.addObstacleNode(graph.grid[3][3])
 //   graph.addObstacleNode(graph.grid[3][4])
 //   graph.addObstacleNode(graph.grid[2][1])
@@ -26,7 +28,11 @@ function setup() {
   source = graph.startNode;
   destination = graph.endNode;
   source.depth = 0;
+  distance[source.i][source.j]= 0;
+
   algorithm = 'bfs';
+  source.distance = 0;
+  pQueue.enqueue(source);
 }
 
 let loop = true;
@@ -36,6 +42,11 @@ function draw() {
         queue.push(source);
         
         bfs();
+    }
+    if (algorithm === 'dijkstra') {
+
+        
+        dijkstra();
     }
 
 

@@ -14,11 +14,7 @@ function Queue () {
     }
 }
 
-var source;
-var destination;
-var queue = new Queue();
-var parent;
-var path= [];
+
 function bfs () {
     
     frameRate(20)

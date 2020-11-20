@@ -1,5 +1,5 @@
- const rows = 7;
- const columns = 7;
+ const rows = 20;
+ const columns = 20;
  const gridLength = 300; //in pixels
 
 
@@ -62,28 +62,27 @@ for (let i = 0; i < graph.grid.length; i++) {
         // up
         if (i > 0)
         graph.grid[i][j].neighbours.push(graph.grid[i-1][j]);
-       // down
-        if (i < rows -1)
-        graph.grid[i][j].neighbours.push(graph.grid[i+1][j]);
         // left 
         if (j > 0)
         graph.grid[i][j].neighbours.push(graph.grid[i][j-1]);
         // right 
         if (j < columns -1)
         graph.grid[i][j].neighbours.push(graph.grid[i][j+1]);
+        // down
+         if (i < rows -1)
+         graph.grid[i][j].neighbours.push(graph.grid[i+1][j]);
         // top right
         if (i > 0 && j < columns -1)
         graph.grid[i][j].neighbours.push(graph.grid[i-1][j+1]);
-        // top left
-        if (i > 0 && j > 0)
-        graph.grid[i][j].neighbours.push(graph.grid[i-1][j-1]);
         // bottom right
         if (i < rows -1 && j < columns -1)
         graph.grid[i][j].neighbours.push(graph.grid[i+1][j+1]);
+        // top left
+        if (i > 0 && j > 0)
+        graph.grid[i][j].neighbours.push(graph.grid[i-1][j-1]);
         // bottom left       
         if ( i < rows -1 && j > 0) 
         graph.grid[i][j].neighbours.push(graph.grid[i+1][j-1]);
-        console.log(graph.grid[i][j]);
     }
 }
 
@@ -109,6 +108,8 @@ for (let i = 0; i < graph.grid.length; i++) {
     this.depth = -1;
     this.parent = this;
     this.inPath = false;
+
+    this.distance= 1; // dijkstra 
 
     this.draw = fillColor => {
         if (this.isObstacle) {
