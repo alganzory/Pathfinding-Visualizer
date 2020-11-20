@@ -83,6 +83,7 @@ for (let i = 0; i < graph.grid.length; i++) {
         // bottom left       
         if ( i < rows -1 && j > 0) 
         graph.grid[i][j].neighbours.push(graph.grid[i+1][j-1]);
+
     }
 }
 
@@ -109,23 +110,25 @@ for (let i = 0; i < graph.grid.length; i++) {
     this.parent = this;
     this.inPath = false;
 
-    this.distance= 1; // dijkstra 
+    this.distance= 1; // dijkstra and A* 
+    this.h; // A*
+    this.f; // A*
 
-    this.draw = fillColor => {
+    this.draw = () => {
         if (this.isObstacle) {
-            fill(100);
+            fill('#808080');
         } else if (this.isSource) {
             fill('red');
         } else if (this.isDestination) {
-            colorMode(HSB);
-            fill(255, 204, 100);
+    
+            fill("#6617CB");
         } else if (this.isEmpty) {
             fill(255)
         } else if (this.isVisited && !this.inPath) {
-            fill('cyan')    
+            fill('#b6ffea')    
         }
         else if (this.inPath){
-            fill (fillColor)
+            fill ("#CB218E")
         }
         rect(this.x, this.y, graph.nodeLength,graph.nodeLength);
     }
