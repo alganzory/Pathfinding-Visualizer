@@ -21,6 +21,10 @@ function Graph () {
     }
 
     this.setStartNode = (node) => {
+        if (this.startNode) {
+            console.log("Clear");
+            this.startNode.clearNode();
+        }
         this.startNode = node;
         this.startNode.isSource = true;
         this.startNode.isDestination = false;
@@ -29,6 +33,10 @@ function Graph () {
     }
 
     this.setEndNode = (node) => {
+        if (this.endNode) {
+            console.log("Clear");
+            this.endNode.clearNode();
+        }
         this.endNode = node;
         this.endNode.isSource = false;
         this.endNode.isDestination = true;
@@ -103,7 +111,13 @@ for (let i = 0; i < graph.grid.length; i++) {
     this.isObstacle = false;
     this.isEmpty = true;
     this.isVisited = false;
-  
+    this.clearNode = () => {
+        this.isSource = false;
+        this.isDestination = false;
+        this.isObstacle = false;
+        this.isEmpty = true;
+        this.isVisited = false;
+    }
 
     // info for algorithms:
     this.depth = -1;
@@ -120,7 +134,6 @@ for (let i = 0; i < graph.grid.length; i++) {
         } else if (this.isSource) {
             fill('red');
         } else if (this.isDestination) {
-    
             fill("#6617CB");
         } else if (this.isEmpty) {
             fill(255)
