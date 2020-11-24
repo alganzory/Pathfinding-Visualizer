@@ -4,6 +4,7 @@ var parent;
 var path = [];
 var sourceDragging = false;
 var destDragging = false;
+var algorithm;
 function setup() {
 
     // setting up board
@@ -11,7 +12,7 @@ function setup() {
     background(255);
     canvas.parent('board-holder');
     stroke('#981BA3');
-    strokeWeight(2);
+    strokeWeight(0.5);
     //=================================
     
     // example problems
@@ -42,17 +43,10 @@ function setup() {
             graph.grid[i][j].f = graph.grid[i][j].h + graph.grid[i][j].distance;
         }
     }
-
-        
-    // canvas.mouseOut(() => {
-    //     sourceDragging = false;
-    //     destDragging = false;
-    // })
-
 }
 
-let loop = true;
-
+let cont = true;
+let i;
 function draw() {
     if (sourceDragging) {
         snapSource();
@@ -61,18 +55,29 @@ function draw() {
     if (destDragging) {
         snapDest();
     }
-
+    if (running) {
+        
     
-    if (algorithm === 'bfs') {
-        bfs(20,10);
-    }
-    if (algorithm === 'dijkstra') {
-        weightedSearch(20,10,true);
-    }
-    if (algorithm === 'A-star') {
-        weightedSearch(20,10,false);
-    }
+        if (algorithm === 'bfs') {
+            bfs(20,10);
+        }
+        if (algorithm === 'dijkstra') {
+            weightedSearch(20,10,true);
 
+        }
+        if (algorithm === 'A-star') {
+            weightedSearch(20,10,false);
+        }
+        i=path.length-1;
+    } 
+    else {
+        if (i>=0){;
+        path[i].inPath = true;
+        path[i].isEmpty = false;
+        i--;
+        }
+
+    }
     background(255);
 
     for (let i = 0; i < columns; i++) {
@@ -83,20 +88,26 @@ function draw() {
 
 }
 
-
+function inBoard () {
+    return (
+    mouseX < graph.grid[rows-1][columns-1].x+graph.nodeLength &&
+        mouseX >= graph.grid[0][0].x &&
+        mouseY < graph.grid[rows-1][columns-1].y+graph.nodeLength && 
+        mouseY >= graph.grid[0][0].y )
+}
 function mousePressed (e){
     
     //check if mouse is over the ellipse
     if(mouseX>graph.startNode.x && mouseX < graph.startNode.x + graph.nodeLength &&
         mouseY>graph.startNode.y && mouseY < graph.startNode.y + graph.nodeLength){
-        console.log("Sourxe");
       sourceDragging = true;
     }
     if(mouseX>graph.endNode.x && mouseX < graph.endNode.x + graph.nodeLength &&
         mouseY>graph.endNode.y && mouseY < graph.endNode.y + graph.nodeLength){
         destDragging = true;
     }
-    else {
+    else if (inBoard()) 
+    {
         obstacleToggle (e);
     }
 
@@ -114,17 +125,13 @@ function mouseReleased() {
 
 
 function snapSource () {
-    if (mouseX>= graph.grid[rows-1][columns-1].x+graph.nodeLength||
-        mouseX < graph.grid[0][0].x || 
-        mouseY >=graph.grid[rows-1][columns-1].y+graph.nodeLength|| 
-        mouseY< graph.grid[0][0].y) {
+    if (!inBoard()) {
        return;
    }
     mouseX -= mouseX % (graph.nodeLength)
     mouseY -= mouseY % (graph.nodeLength)
     let i = (mouseY/ graph.nodeLength);
     let j = (mouseX / graph.nodeLength);
-    // console.log(i,j);
     if(graph.grid[i][j].isDestination) {
         graph.setEndNode(graph.grid[(i+1)%(graph.rows)][(j+1)%(graph.columns)]);
     }
@@ -132,17 +139,13 @@ function snapSource () {
 }
 
 function snapDest () {
-    if (mouseX>= graph.grid[rows-1][columns-1].x+graph.nodeLength||
-         mouseX < graph.grid[0][0].x || 
-         mouseY >=graph.grid[rows-1][columns-1].y+graph.nodeLength|| 
-         mouseY< graph.grid[0][0].y) {
+    if (!inBoard()) {
         return;
     }
     mouseX -= mouseX % (graph.nodeLength)
     mouseY -= mouseY % (graph.nodeLength)
     let i = (mouseY/ graph.nodeLength)
     let j = (mouseX / graph.nodeLength);
-    // console.log(i,j);
     if(graph.grid[i][j].isSource) {
         graph.setStartNode(graph.grid[(i+1)%(graph.rows)][(j+1)%(graph.columns)]);
     }
@@ -150,6 +153,12 @@ function snapDest () {
 }
 
 function obstacleToggle (e) {
+    if (mouseX>= graph.grid[rows-1][columns-1].x+graph.nodeLength||
+        mouseX < graph.grid[0][0].x || 
+        mouseY >=graph.grid[rows-1][columns-1].y+graph.nodeLength|| 
+        mouseY< graph.grid[0][0].y) {
+       return;
+   }
     let x = e.offsetX;
     let y = e.offsetY;
     if (x>= graph.grid[rows-1][columns-1].x+graph.nodeLength||

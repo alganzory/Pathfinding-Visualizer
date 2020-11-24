@@ -27,10 +27,10 @@ var queue = new Queue();
 function bfs(frameRate1, frameRate2) {
 
     frameRate(frameRate1)
-    if (!queue.isEmpty() && loop) {
+    if (!queue.isEmpty() && cont) {
         let currentNode = queue.pop();
         if (currentNode === destination) {
-            loop = false;
+            cont = false;
         }
         depth = currentNode.depth;
         currentNode.isVisited = true;
@@ -47,15 +47,10 @@ function bfs(frameRate1, frameRate2) {
         frameRate(frameRate2)
         parent = destination.parent;
         if (parent === parent.parent) {
-            noLoop();
-            console.log(path);
+            running = false;
             return path
         }
         path.push(parent);
-        console.log(parent, "parent");
-        parent.inPath = true;
-        parent.isEmpty = false;
-        console.log(destination, "here")
         destination = parent;
     }
 }

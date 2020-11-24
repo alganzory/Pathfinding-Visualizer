@@ -47,9 +47,11 @@ for (let i = 0; i < distance.length; i++) {
 }
 
 
+let cont2 =true;
+let running = true;
 function weightedSearch(frameRate1, frameRate2, dijkstra) {
     frameRate(frameRate1)
-    if (!pQueue.isEmpty() && loop) {
+    if (!pQueue.isEmpty() && cont2) {
         let front = pQueue.pop();
 
         if (front.distance <= distance[front.i][front.j]) {
@@ -59,7 +61,7 @@ function weightedSearch(frameRate1, frameRate2, dijkstra) {
                     distance[neighbour.i][neighbour.j] = distance[front.i][front.j] + neighbour.distance;
                     neighbour.parent = front;
                     if (neighbour === destination) {
-                        loop = false;
+                        cont2 = false;
                         break;
                     }
                     neighbour.isVisited = true
@@ -72,15 +74,10 @@ function weightedSearch(frameRate1, frameRate2, dijkstra) {
         frameRate(frameRate2)
         parent = destination.parent;
         if (parent === parent.parent) {
-            noLoop();
-            console.log(path);
+            running = false;
             return path
         }
         path.push(parent);
-        console.log(parent, "parent");
-        parent.inPath = true;
-        parent.isEmpty = false;
-        console.log(destination, "here")
         destination = parent;
     }
 }

@@ -1,6 +1,6 @@
  const rows = 20;
  const columns = 20;
- const gridLength = 300; //in pixels
+ const gridLength = 320; //in pixels
 
 
 function Graph () {
@@ -22,7 +22,6 @@ function Graph () {
 
     this.setStartNode = (node) => {
         if (this.startNode) {
-            console.log("Clear");
             this.startNode.clearNode();
         }
         this.startNode = node;
@@ -34,7 +33,6 @@ function Graph () {
 
     this.setEndNode = (node) => {
         if (this.endNode) {
-            console.log("Clear");
             this.endNode.clearNode();
         }
         this.endNode = node;
@@ -52,7 +50,6 @@ function Graph () {
         node.isEmpty = false;
         this.obstacleNodes.push (node)
     }
-
 
 }
 var graph = new Graph();
