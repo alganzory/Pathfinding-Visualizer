@@ -1,7 +1,10 @@
-var source;
-var destination;
-var parent;
-var path = [];
+var rows = 20;
+var columns = 20;
+var gridLength = 320; //in pixels
+var graph;
+var pQueue;
+var queue;
+
 var sourceDragging = false;
 var destDragging = false;
 var algorithm;
@@ -15,6 +18,10 @@ function setup() {
     strokeWeight(0.5);
     //=================================
     
+    
+    graph = new Graph(rows,columns,gridLength);
+    pQueue = new PriorityQueue();
+    queue = new Queue();
     // example problems
     graph.setStartNode(graph.grid[8][7]);
     graph.setEndNode(graph.grid[13][9]);
@@ -24,29 +31,23 @@ function setup() {
     
     //=================================
     // User Choices
-    source = graph.startNode;
-    destination = graph.endNode;
     algorithm = 'None';
 
     // BFS
-    source.depth = 0;
-    queue.push(source);
+    graph.startNode.depth = 0;
+    queue.push(graph.startNode);
 
     // A* and Dijkstra
-    distance[source.i][source.j] = 0;
-    source.distance = 0;
-    pQueue.enqueue(source);
+    graph.distances[graph.startNode.i][graph.startNode.j] = 0;
+    graph.startNode.distance = 0;
+    pQueue.enqueue(graph.startNode);
+    graph.setNodesData(graph.endNode)
 
-    for (let i = 0; i < graph.grid.length; i++) {
-        for (let j = 0; j < graph.grid[i].length; j++) {
-            graph.grid[i][j].h = Math.hypot((graph.grid[i][j].x - destination.x), (graph.grid[i][j].y - destination.y));
-            graph.grid[i][j].f = graph.grid[i][j].h + graph.grid[i][j].distance;
-        }
-    }
 }
 
-let cont = true;
 let i;
+let cont =true;
+let running = true;
 function draw() {
     if (sourceDragging) {
         snapSource();
@@ -57,31 +58,32 @@ function draw() {
     }
     if (running) {
         
-    
         if (algorithm === 'bfs') {
-            bfs(20,10);
+            bfs(queue,graph, 40,20,cont);
         }
         if (algorithm === 'dijkstra') {
-            weightedSearch(20,10,true);
+            
+            weightedSearch(pQueue, graph, 20,10,true,cont);
 
         }
         if (algorithm === 'A-star') {
-            weightedSearch(20,10,false);
+            weightedSearch(pQueue, graph,20,10,false,cont);
         }
-        i=path.length-1;
+
+        i=graph.path.length-1;
     } 
     else {
         if (i>=0){;
-        path[i].inPath = true;
-        path[i].isEmpty = false;
+        graph.path[i].inPath = true;
+        graph.path[i].isEmpty = false;
         i--;
         }
-
+        else {running = true; algorithm= "none"}
     }
     background(255);
 
-    for (let i = 0; i < columns; i++) {
-        for (let j = 0; j < rows; j++) {
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < columns; j++) {
             graph.grid[i][j].draw();
         }
     }
@@ -95,6 +97,7 @@ function inBoard () {
         mouseY < graph.grid[rows-1][columns-1].y+graph.nodeLength && 
         mouseY >= graph.grid[0][0].y )
 }
+
 function mousePressed (e){
     
     //check if mouse is over the ellipse
@@ -173,7 +176,7 @@ function obstacleToggle (e) {
    let i = (y/ graph.nodeLength)
    let j = (x / graph.nodeLength);
    if(graph.grid[i][j].isObstacle) {
-        graph.grid[i][j].clearNode();
+        graph.grid[i][j].emptyNode();
     }else {
         graph.addObstacleNode(graph.grid[i][j]);
     }   

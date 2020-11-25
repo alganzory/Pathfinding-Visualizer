@@ -22,15 +22,16 @@ class Queue {
     }
 }
 
-var queue = new Queue();
-
-function bfs(frameRate1, frameRate2) {
+function bfs(queue, graph, frameRate1, frameRate2) {
 
     frameRate(frameRate1)
+    var destination = graph.endNode;
     if (!queue.isEmpty() && cont) {
+        var destination = graph.endNode;
         let currentNode = queue.pop();
         if (currentNode === destination) {
             cont = false;
+            
         }
         depth = currentNode.depth;
         currentNode.isVisited = true;
@@ -45,12 +46,14 @@ function bfs(frameRate1, frameRate2) {
         }
     } else {
         frameRate(frameRate2)
-        parent = destination.parent;
-        if (parent === parent.parent) {
-            running = false;
-            return path
-        }
-        path.push(parent);
-        destination = parent;
+        console.log(running);
+        let parent;
+        do {
+            parent = destination.parent;
+            destination = parent;
+            graph.path.push(parent);
+        } while (parent !== parent.parent )
+        running = false;
+        return graph.path;
     }
 }

@@ -1,11 +1,10 @@
 <%- include ("./parts/header.ejs") %>
 <link rel="stylesheet" href="/css/custom.css" />
 <script defer src="/js/p5.min.js"></script>
-<script src="/js/algorithms/graphDS.js"></script>
-<script src="/js/algorithms/unweighted.js"></script>
-<script src="/js/algorithms/weighted.js"></script>
+<script src="/graphDS.js"></script>
+<script src="/weighted.js"></script>
+<script src="/unweighted.js"></script>
 <script src="/js/sketches/board.js"></script>
-
 <div class="content font-myfont">
     <div class="secondaryBanner"></div>
 
@@ -73,7 +72,7 @@
                             </label>
                             <input
                                 class="block w-full bg-white text-gray-700 text-sm border border-gray-700 rounded-md py-1 px-1"
-                                type="number" name="rows" step="1" min="0" max="50" value="15" />
+                                type="number" name="columns" step="1" min="0" max="50" value="15" />
                         </div>
                     </div>
 
@@ -104,7 +103,7 @@
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-5 justify-items-between">
-                        <button id="generate" class="text-white text-sm uppercase py-2 px-2 rounded-lg" type="submit">
+                        <button  id="generate" class="text-white text-sm uppercase py-2 px-2 rounded-lg" type="submit">
                             Generate
                         </button>
                         <button id="clear"
@@ -198,5 +197,6 @@
         </div>
     </div>
 </div>
+
 
 <%- include ("./parts/footer.ejs") %>
