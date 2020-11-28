@@ -27,7 +27,6 @@ function bfs(queue, graph, frameRate1, frameRate2) {
     frameRate(frameRate1)
     var destination = graph.endNode;
     if (!queue.isEmpty() && cont) {
-        var destination = graph.endNode;
         let currentNode = queue.pop();
         if (currentNode === destination) {
             cont = false;

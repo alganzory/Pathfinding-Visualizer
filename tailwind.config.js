@@ -135,6 +135,13 @@ module.exports = {
       },
       pinkishPurple: {
         100: '#981BA3'
+      },
+      blueishPurple: {
+        100:'#4945F6',
+        200:'#5731F0',
+        300:'#631EEA',
+        400: '#6B10E5',
+        500: '#7206E2'
       }
     },
     spacing: {

@@ -3,8 +3,8 @@ class Graph {
         this.rows = rows;
         this.columns = columns;
 
-        this.nodeLength = gridLength / rows;
-        this.nodeWidth = gridLength/ columns;
+        this.nodeWidth = Math.floor(gridLength / columns);
+        this.nodeHeight = Math.floor(gridLength/ rows);
         this.startNode;
 
         this.endNode;
@@ -21,7 +21,7 @@ class Graph {
        
         for (let i = 0; i < this.rows; i++) {
                 for (let j = 0; j < this.columns; j++) {
-                    this.grid[i][j] = new Node(i, j,this.nodeLength,this.nodeWidth);
+                    this.grid[i][j] = new Node(i, j,this.nodeWidth,this.nodeHeight);
                 }
         }
     
@@ -71,13 +71,13 @@ class Graph {
 }
 
  class Node {
-    constructor(i, j,nodeLength,nodeWidth) {
+    constructor(i, j,nodeWidth,nodeHeight) {
 
         // location and id
         this.i = i;
         this.j = j;
-        this.x = j * nodeLength;
-        this.y = i * nodeWidth;
+        this.x = j * nodeWidth;
+        this.y = i * nodeHeight;
 
         this.neighbours = [];
 
@@ -105,9 +105,10 @@ class Graph {
         if (this.isObstacle) {
             fill('#808080');
         } else if (this.isSource) {
+
             fill('red');
         } else if (this.isDestination) {
-            fill("#6617CB");
+            fill("#7206E2");
         } else if (this.isEmpty) {
             fill(255)
         } else if (this.isVisited && !this.inPath) {
@@ -116,7 +117,7 @@ class Graph {
         else if (this.inPath){
             fill ("#CB218E")
         }
-        rect(this.x, this.y, graph.nodeLength,graph.nodeWidth);
+        rect(this.x, this.y, graph.nodeWidth,graph.nodeHeight);
     }
 
     addNeighbours = () => {

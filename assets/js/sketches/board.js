@@ -1,6 +1,7 @@
-var rows = 20;
-var columns = 20;
-var gridLength = 320; //in pixels
+
+var rows;
+var columns;
+const gridLength = 320; //in pixels
 var graph;
 var pQueue;
 var queue;
@@ -8,30 +9,22 @@ var queue;
 var sourceDragging = false;
 var destDragging = false;
 var algorithm;
-function setup() {
 
-    // setting up board
-    var canvas = createCanvas(gridLength, gridLength);
-    background(255);
-    canvas.parent('board-holder');
-    stroke('#981BA3');
-    strokeWeight(0.5);
-    //=================================
-    
-    
+
+function resetGraph(rows_=15, columns_=15, startNodeI=4, startNodeJ=4, endNodeI=5, endNodeJ=14) {
+    rows = rows_;
+    columns = columns_;
+  
     graph = new Graph(rows,columns,gridLength);
     pQueue = new PriorityQueue();
     queue = new Queue();
-    // example problems
-    graph.setStartNode(graph.grid[8][7]);
-    graph.setEndNode(graph.grid[13][9]);
-    graph.addObstacleNode(graph.grid[9][7])
-    graph.addObstacleNode(graph.grid[9][8])
-    graph.addObstacleNode(graph.grid[10][9])
-    
-    //=================================
-    // User Choices
+    resizeCanvas(columns* graph.nodeWidth,rows*graph.nodeHeight);
+
+    graph.setStartNode(graph.grid[startNodeI][startNodeJ]);
+    graph.setEndNode(graph.grid[endNodeI][endNodeJ]);
+
     algorithm = 'None';
+    graph.setNodesData(graph.endNode)
 
     // BFS
     graph.startNode.depth = 0;
@@ -41,7 +34,27 @@ function setup() {
     graph.distances[graph.startNode.i][graph.startNode.j] = 0;
     graph.startNode.distance = 0;
     pQueue.enqueue(graph.startNode);
-    graph.setNodesData(graph.endNode)
+}
+
+function setup() {
+
+    
+    // setting up board
+    var canvas = createCanvas(gridLength, gridLength);
+    background(255);
+    canvas.parent('board-holder');
+    stroke('#6B10E5');
+    strokeWeight(0.5);
+    //=================================
+    
+    resetGraph();
+    // graph.addObstacleNode(graph.grid[9][7])
+    // graph.addObstacleNode(graph.grid[9][8])
+    // graph.addObstacleNode(graph.grid[10][9])
+    
+    //=================================
+
+    
 
 }
 
@@ -49,6 +62,8 @@ let i;
 let cont =true;
 let running = true;
 function draw() {
+    //  scale((gridLength/(columns*graph.nodeLength)),gridLength/(rows*graph.nodeWidth));
+    // scale(gridLength/(graph.rows*graph.nodeHeight))
     if (sourceDragging) {
         snapSource();
     } 
@@ -92,21 +107,21 @@ function draw() {
 
 function inBoard () {
     return (
-    mouseX < graph.grid[rows-1][columns-1].x+graph.nodeLength &&
+    mouseX < graph.grid[rows-1][columns-1].x+graph.nodeWidth &&
         mouseX >= graph.grid[0][0].x &&
-        mouseY < graph.grid[rows-1][columns-1].y+graph.nodeLength && 
+        mouseY < graph.grid[rows-1][columns-1].y+graph.nodeHeight && 
         mouseY >= graph.grid[0][0].y )
 }
 
 function mousePressed (e){
     
     //check if mouse is over the ellipse
-    if(mouseX>graph.startNode.x && mouseX < graph.startNode.x + graph.nodeLength &&
-        mouseY>graph.startNode.y && mouseY < graph.startNode.y + graph.nodeLength){
+    if(mouseX>graph.startNode.x && mouseX < graph.startNode.x + graph.nodeWidth &&
+        mouseY>graph.startNode.y && mouseY < graph.startNode.y + graph.nodeHeight){
       sourceDragging = true;
     }
-    if(mouseX>graph.endNode.x && mouseX < graph.endNode.x + graph.nodeLength &&
-        mouseY>graph.endNode.y && mouseY < graph.endNode.y + graph.nodeLength){
+    if(mouseX>graph.endNode.x && mouseX < graph.endNode.x + graph.nodeWidth &&
+        mouseY>graph.endNode.y && mouseY < graph.endNode.y + graph.nodeHeight){
         destDragging = true;
     }
     else if (inBoard()) 
@@ -131,12 +146,19 @@ function snapSource () {
     if (!inBoard()) {
        return;
    }
-    mouseX -= mouseX % (graph.nodeLength)
-    mouseY -= mouseY % (graph.nodeLength)
-    let i = (mouseY/ graph.nodeLength);
-    let j = (mouseX / graph.nodeLength);
+    console.log(mouseX, "b");
+    mouseX -= (mouseX % (graph.nodeWidth))
+    mouseY -= (mouseY % (graph.nodeHeight))
+    console.log(mouseX, "a");
+    
+    let i = mouseY/ (graph.nodeHeight);
+    let j = mouseX/ (graph.nodeWidth);
+    if(graph.grid[i][j] === undefined){
+        debugger;
+    }
     if(graph.grid[i][j].isDestination) {
-        graph.setEndNode(graph.grid[(i+1)%(graph.rows)][(j+1)%(graph.columns)]);
+        
+            graph.setEndNode(graph.grid[(i+1)%(graph.rows)][(j+1)%(graph.columns)]);
     }
     graph.setStartNode(graph.grid[i][j]);
 }
@@ -145,10 +167,10 @@ function snapDest () {
     if (!inBoard()) {
         return;
     }
-    mouseX -= mouseX % (graph.nodeLength)
-    mouseY -= mouseY % (graph.nodeLength)
-    let i = (mouseY/ graph.nodeLength)
-    let j = (mouseX / graph.nodeLength);
+    mouseX -= mouseX % (graph.nodeWidth)
+    mouseY -= mouseY % (graph.nodeHeight)
+    let i = (mouseY/ graph.nodeHeight)
+    let j = (mouseX / graph.nodeWidth);
     if(graph.grid[i][j].isSource) {
         graph.setStartNode(graph.grid[(i+1)%(graph.rows)][(j+1)%(graph.columns)]);
     }
@@ -156,25 +178,25 @@ function snapDest () {
 }
 
 function obstacleToggle (e) {
-    if (mouseX>= graph.grid[rows-1][columns-1].x+graph.nodeLength||
+    if (mouseX>= graph.grid[rows-1][columns-1].x+graph.nodeWidth||
         mouseX < graph.grid[0][0].x || 
-        mouseY >=graph.grid[rows-1][columns-1].y+graph.nodeLength|| 
+        mouseY >=graph.grid[rows-1][columns-1].y+graph.nodeHeight|| 
         mouseY< graph.grid[0][0].y) {
        return;
    }
     let x = e.offsetX;
     let y = e.offsetY;
-    if (x>= graph.grid[rows-1][columns-1].x+graph.nodeLength||
+    if (x>= graph.grid[rows-1][columns-1].x+graph.nodeWidth||
         x < graph.grid[0][0].x || 
-        y >=graph.grid[rows-1][columns-1].y+graph.nodeLength|| 
+        y >=graph.grid[rows-1][columns-1].y+graph.nodeHeight|| 
         y< graph.grid[0][0].y) {
        return;
    }
 
-   x -= x % (graph.nodeLength)
-   y -= y % (graph.nodeLength)
-   let i = (y/ graph.nodeLength)
-   let j = (x / graph.nodeLength);
+   x -= x % (graph.nodeWidth)
+   y -= y % (graph.nodeHeight)
+   let i = (y/ graph.nodeHeight)
+   let j = (x / graph.nodeWidth);
    if(graph.grid[i][j].isObstacle) {
         graph.grid[i][j].emptyNode();
     }else {
