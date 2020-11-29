@@ -1,15 +1,35 @@
 class Graph {
-    constructor(rows, columns, gridLength) {
+    constructor(rows, columns,startNode, endNode, gridLength) {
         this.rows = rows;
         this.columns = columns;
 
         this.nodeWidth = Math.floor(gridLength / columns);
         this.nodeHeight = Math.floor(gridLength/ rows);
+        
+        this.grid =[];
         this.startNode;
-
         this.endNode;
+        this.obstacleNodes= [];
+    
+        this.distances= [];
+        this.path= [];
+        this.setGrid (startNode,endNode);
+    }
 
-        this.obstacleNodes = [];
+    clearSolution= () => {
+        this.distances = new Array(this.rows);
+        for (let i = 0; i < this.rows; i++) {
+            this.distances[i] = new Array(this.columns).fill(Infinity);
+        }
+        this.path = [];
+        this.grid.forEach(row =>
+            row.forEach(node => {
+                node.resetNode();
+        }))
+        
+    }
+
+    setGrid = (startNode,endNode) => {
         this.grid = new Array(this.rows);
         this.distances = new Array(this.rows);
         this.path = [];
@@ -18,13 +38,14 @@ class Graph {
             this.grid[i] = new Array(this.columns);
             this.distances[i] = new Array(this.columns).fill(Infinity);
         }
-       
-        for (let i = 0; i < this.rows; i++) {
-                for (let j = 0; j < this.columns; j++) {
-                    this.grid[i][j] = new Node(i, j,this.nodeWidth,this.nodeHeight);
-                }
-        }
     
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.columns; j++) {
+                this.grid[i][j] = new Node(i, j,this.nodeWidth,this.nodeHeight);
+            }
+        }
+        this.setStartNode(this.grid[startNode.i][startNode.j]);
+        this.setEndNode(this.grid[endNode.i][endNode.j])
     }
 
     setNodesData = ( endNode) => {
@@ -149,12 +170,22 @@ class Graph {
             this.neighbours.push(graph.grid[i + 1][j - 1]);
     };
 
+
     emptyNode = () => {
-        this.isSource = false;
         this.isDestination = false;
+        this.isSource = false;
         this.isObstacle = false;
         this.isEmpty = true;
+    }
+
+    resetNode = () => {
         this.isVisited = false;
-    };
+        this.inPath = false;
+        this.depth = -1;
+        this.parent = this;
+        this.distance = 1; 
+        this.h;
+        this.f;    
+    }
 }
 

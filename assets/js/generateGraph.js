@@ -21,6 +21,7 @@ document.querySelector('#generate-form')
             destY.value = destY_
         }
         resetGraph(rows_,columns_,sourceX_,sourceY_,destX_,destY_);
+        defaultButtonStates();
     }
 )
 
@@ -55,9 +56,51 @@ destX.addEventListener('change', function(e) {
 const destY=document.querySelector('#destY')
 destY.addEventListener('change', function(e) {
     const colsCount = +document.querySelector('#cols').value;
-    
+    console.log(running);
     if (+this.value >= colsCount){
         this.value=colsCount-1;
     }
 })
 
+const algChoice = document.querySelector('#algorithm');
+
+const solveButton = document.querySelector('#solve');
+solveButton.addEventListener('click', function(e){
+    let choice = algChoice.options[algChoice.selectedIndex].value;
+    solveGraph(choice);
+    stopButton.disabled=false;
+    this.disabled= true;
+})
+
+const stopButton= document.querySelector('#stop');
+stopButton.addEventListener('click', function(e){
+    noLoop();
+    stopOrEnd();
+    
+})
+
+const clearGraphButton = document.querySelector('#clear-graph');
+clearGraphButton.addEventListener('click', function(e){
+    resetGraph(graph.rows,graph.columns,
+        graph.startNode.i, graph.startNode.j,
+        graph.endNode.i, graph.endNode.j);
+        defaultButtonStates();
+})
+// clearGraphButton.addEventListener()
+
+function defaultButtonStates () {
+    clearGraphButton.style.visibility = "hidden"
+    clearGraphButton.style.display="none";
+    stopButton.style.display="block";
+    stopButton.style.visibility = "visible"
+    stopButton.disabled=true;
+    solveButton.disabled=false;
+    loop();
+}
+
+function stopOrEnd() {
+    stopButton.style.visibility = "hidden"
+    stopButton.style.display="none";
+    clearGraphButton.style.display="block";
+    clearGraphButton.style.visibility = "visible"
+}

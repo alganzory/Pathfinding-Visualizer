@@ -10,30 +10,38 @@ var sourceDragging = false;
 var destDragging = false;
 var algorithm;
 
-
-function resetGraph(rows_=15, columns_=15, startNodeI=4, startNodeJ=4, endNodeI=5, endNodeJ=14) {
+function resetGraph(rows_=15, columns_=15, startNodeI=3, startNodeJ=3, endNodeI=13, endNodeJ=12) {
     rows = rows_;
     columns = columns_;
-  
-    graph = new Graph(rows,columns,gridLength);
-    pQueue = new PriorityQueue();
-    queue = new Queue();
+    if(!running){
+        running = true;
+    }
+    graph = new Graph(rows,columns, {i:startNodeI, j:startNodeJ}, {i:endNodeI, j:endNodeJ},gridLength);
+    graph.setNodesData(graph.endNode);
     resizeCanvas(columns* graph.nodeWidth,rows*graph.nodeHeight);
-
-    graph.setStartNode(graph.grid[startNodeI][startNodeJ]);
-    graph.setEndNode(graph.grid[endNodeI][endNodeJ]);
-
     algorithm = 'None';
-    graph.setNodesData(graph.endNode)
+}
 
-    // BFS
-    graph.startNode.depth = 0;
-    queue.push(graph.startNode);
+function solveGraph (algorithm_) {
 
-    // A* and Dijkstra
-    graph.distances[graph.startNode.i][graph.startNode.j] = 0;
-    graph.startNode.distance = 0;
-    pQueue.enqueue(graph.startNode);
+
+    graph.clearSolution();
+    graph.setNodesData(graph.endNode);
+
+    if (algorithm_==='bfs') {
+        queue = new Queue();
+        graph.startNode.depth = 0;
+        queue.push(graph.startNode);
+        
+    } else if(algorithm_ ==='dijkstra' || algorithm_ ==='A-star') {
+        pQueue= new PriorityQueue();
+        graph.distances[graph.startNode.i][graph.startNode.j] = 0;
+        graph.startNode.distance = 0;
+        pQueue.enqueue(graph.startNode);
+
+    }
+    algorithm = algorithm_;
+    running = true; 
 }
 
 function setup() {
@@ -60,7 +68,7 @@ function setup() {
 
 let i;
 let cont =true;
-let running = true;
+let running;
 function draw() {
     //  scale((gridLength/(columns*graph.nodeLength)),gridLength/(rows*graph.nodeWidth));
     // scale(gridLength/(graph.rows*graph.nodeHeight))
@@ -92,13 +100,17 @@ function draw() {
         graph.path[i].inPath = true;
         graph.path[i].isEmpty = false;
         i--;
+        }else{
+            noLoop();
+            stopOrEnd();
         }
-        else {running = true; algorithm= "none"}
     }
     background(255);
 
+    if(graph.grid==undefined) alert("d");
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < columns; j++) {
+            if(graph.grid==undefined) alert("d");
             graph.grid[i][j].draw();
         }
     }
@@ -199,7 +211,10 @@ function obstacleToggle (e) {
    let j = (x / graph.nodeWidth);
    if(graph.grid[i][j].isObstacle) {
         graph.grid[i][j].emptyNode();
-    }else {
+    }else if (graph.grid[i][j].isSource || graph.grid[i][j].isDestination){
+        return;
+    }
+    else {
         graph.addObstacleNode(graph.grid[i][j]);
     }   
 }

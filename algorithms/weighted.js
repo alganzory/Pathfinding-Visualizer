@@ -74,6 +74,7 @@ function weightedSearch(pQueue, graph , frameRate1, frameRate2, dijkstra) {
             graph.path.push(parent);
         } while (parent !== parent.parent )
         running = false;
+        cont = true;
         return graph.path;
     }
 }

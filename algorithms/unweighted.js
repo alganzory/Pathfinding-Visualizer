@@ -53,6 +53,7 @@ function bfs(queue, graph, frameRate1, frameRate2) {
             graph.path.push(parent);
         } while (parent !== parent.parent )
         running = false;
+        cont = true;
         return graph.path;
     }
 }
