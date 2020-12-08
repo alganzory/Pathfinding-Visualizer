@@ -101,6 +101,7 @@ function draw() {
         graph.path[i].isEmpty = false;
         i--;
         }else{
+            console.log(graph.path);
             noLoop();
             stopOrEnd();
         }

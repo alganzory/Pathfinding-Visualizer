@@ -104,3 +104,52 @@ function stopOrEnd() {
     clearGraphButton.style.display="block";
     clearGraphButton.style.visibility = "visible"
 }
+
+const connectButton = document.querySelector("#connect");
+connectButton.addEventListener('click', function (e) {
+    let directions = getDirectionsFromPath();
+    console.log(directions);
+    var xhr = new XMLHttpRequest();
+    var url = "http://192.168.8.100/path";
+    xhr.open("POST", url);
+    var data = {path:"wxdaswxdaS"};
+    xhr.send(JSON.stringify(data));
+    console.log("DONE");
+
+})
+
+
+function getDirectionsFromPath() {
+    let directions = [];
+    for (let i= graph.path.length-1; i>= 0 ; i--) {
+        let thisNode = graph.path[i];
+        let parent = graph.path[i].parent;
+        
+        // the letters corresponding to the directions are following keyborad layout
+
+        //  q  w  e
+        //  a  s  d
+        //  z  x  c
+        
+        if (parent.i==thisNode.i && parent.j == thisNode.j )
+            continue;
+        if (parent.i==thisNode.i && parent.j == thisNode.j-1) // right
+            directions.push("d");
+        else if (parent.i==thisNode.i && parent.j == thisNode.j+1) //left
+            directions.push("a");
+        else if (parent.i==thisNode.i-1 && parent.j == thisNode.j) //down
+            directions.push("x");
+        else if (parent.i==thisNode.i+1 && parent.j == thisNode.j) //up
+            directions.push("w");
+        else if (parent.i==thisNode.i-1 && parent.j == thisNode.j-1) //down right
+            directions.push("c");
+        else if (parent.i==thisNode.i-1 && parent.j == thisNode.j+1) //down left
+            directions.push("z");
+        else if (parent.i==thisNode.i+1 && parent.j == thisNode.j-1) // up right
+            directions.push("e");
+        else if (parent.i==thisNode.i+1 && parent.j == thisNode.j+1) // up left
+            directions.push("q");
+    }
+    directions.push("S"); // Stop
+    return directions;
+}
