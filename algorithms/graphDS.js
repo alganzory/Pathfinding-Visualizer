@@ -124,7 +124,7 @@ class Graph {
 
     draw = () => {
         if (this.isObstacle) {
-            fill('#808080');
+            fill('#8c8593');
         } else if (this.isSource) {
 
             fill('red');
@@ -133,10 +133,10 @@ class Graph {
         } else if (this.isEmpty) {
             fill(255)
         } else if (this.isVisited && !this.inPath) {
-            fill('#b6ffea')    
+            fill('#d3fff4')    
         }
         else if (this.inPath){
-            fill ("#CB218E")
+            fill ("#27dbb1")
         }
         rect(this.x, this.y, graph.nodeWidth,graph.nodeHeight);
     }

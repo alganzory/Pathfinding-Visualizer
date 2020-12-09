@@ -53,10 +53,19 @@
 
                     <!-- Modal Content-->
                     <div class="flex-none w-full h-auto py-5 px-4 justify-center items-center bg-gray-200 rounded text-center text-gray-500 text-sm md:text-md">
-                        1. Drag to move source cell (Robot) and click on it to rotate it
-                        <br />
-                        2. Drag to move destination cell (Target).
-                        <br/>3. Click on a cell to fill it with an obstacle (click again to empty it).
+                        1. Generate a graph with number of rows and columns similar to your scenario.
+                        <br>
+                        <br>
+                        2. Drag to move source cell colored in red.
+                        <br>
+                        <br>
+                        3. Drag to move destination cell colored in purple.
+                        <br>
+                        <br>
+                         4. Click on a cell to fill it with an obstacle (click again to empty it).
+                         <br>
+                         <br>
+                        5. Choose an algorithm from the list, and tap solve!
                     </div>
                     <!-- End of Modal Content-->
                         
@@ -107,11 +116,11 @@
                                 <input
                                     id="sourceX"
                                     class="w-12 bg-white text-gray-700 text-sm border border-gray-700 rounded-md py-1 px-1"
-                                    name="sourceX" type="number" placeholder="x" value="7" min="0" max="49" />
+                                    name="sourceX" type="number" placeholder="x" value="2" min="0" max="49" />
                                 <input
                                     id="sourceY"
                                     class="w-12 bg-white text-gray-700 text-sm border border-gray-700 rounded-md py-1 px-1"
-                                    name="sourceY" type="number" placeholder="y" value="7" min="0" max="49" />
+                                    name="sourceY" type="number" placeholder="y" value="1" min="0" max="49" />
                             </div>
                         </div>
                         <div>
@@ -121,11 +130,11 @@
                                 <input
                                     id="destX"
                                     class="w-12 bg-white text-gray-700 text-sm border border-gray-700 rounded-md py-1 px-1"
-                                    name="destX" type="number" placeholder="x" value="14" min="0" max="49" />
+                                    name="destX" type="number" placeholder="x" value="7" min="0" max="49" />
                                 <input
                                     id="destY"
                                     class="w-12 bg-white text-gray-700 text-sm border border-gray-700 rounded-md py-1 px-1"
-                                    name="destY" type="number" placeholder="y" value="12" min="0" max="49" />
+                                    name="destY" type="number" placeholder="y" value="7" min="0" max="49" />
                             </div>
                         </div>
                     </div>
@@ -207,10 +216,17 @@
 
                                     <!-- Modal Content-->
                                     <div class="flex-none w-full h-auto py-5 px-4 justify-center items-center bg-gray-200 rounded text-center text-gray-500 text-sm md:text-md">
-                                        1. A*:
-                                        <br />
-                                        2. BFS:
-                                        <br/>3.Dijksta: 
+                                        A*:
+                                        <br> 
+                                        An informed or guided weighted algorithm, that means it can work on graphs with non uniform distances and is considered one of the fastest path finding algorithms
+                                        <br>
+                                        <br>
+                                        BFS: 
+                                        <br> An unweighted algorithm, cannot be used on graphs unless they have uniform distances, uninformed, so it explores all possible solutions.
+                                        <br>
+                                        <br>
+                                        Dijkstra: 
+                                        <br> A weighted algorithm, can be used on graphs with non uniform distances, uninformed, so it will explore all possible solutions.
                                     </div>
                                     <!-- End of Modal Content-->
                                         
