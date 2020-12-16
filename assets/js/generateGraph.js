@@ -20,6 +20,18 @@ document.querySelector('#generate-form')
             destX.value= destX_
             destY.value = destY_
         }
+
+        if (sourceX_ >= rows_  || destX >= rows_ || sourceY_ >= columns_ || destY_ >= columns_) {
+            sourceX_=0;
+            sourceY_=0;
+            destX_=rows_-1;
+            destY_=columns_-1;
+
+            sourceX.value = sourceX_;
+            sourceY.value = sourceY_;
+            destX.value= destX_
+            destY.value = destY_
+        }
         resetGraph(rows_,columns_,sourceX_,sourceY_,destX_,destY_);
         defaultButtonStates();
     }
@@ -151,5 +163,6 @@ function getDirectionsFromPath() {
             directions.push("q");
     }
     directions.push("S"); // Stop
+    directions = directions.join ("");
     return directions;
 }

@@ -126,7 +126,6 @@ class Graph {
         if (this.isObstacle) {
             fill('#8c8593');
         } else if (this.isSource) {
-
             fill('red');
         } else if (this.isDestination) {
             fill("#7206E2");

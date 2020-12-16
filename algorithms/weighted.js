@@ -51,8 +51,11 @@ function weightedSearch(pQueue, graph , frameRate1, frameRate2, dijkstra) {
         if (front.distance <= graph.distances[front.i][front.j]) {
             for (let neighbour of front.neighbours) {
                 if (neighbour.isObstacle) continue;
-                if (graph.distances[front.i][front.j] + neighbour.distance < graph.distances[neighbour.i][neighbour.j]) {
-                    graph.distances[neighbour.i][neighbour.j] = graph.distances[front.i][front.j] + neighbour.distance;
+                if (graph.distances[front.i][front.j] + neighbour.distance 
+                        < graph.distances[neighbour.i][neighbour.j]) {
+                    graph.distances[neighbour.i][neighbour.j] = 
+                        graph.distances[front.i][front.j] + neighbour.distance;
+                        
                     neighbour.parent = front;
                     if (neighbour === destination) {
                         cont = false;

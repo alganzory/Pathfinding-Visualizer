@@ -86,11 +86,11 @@ function draw() {
         }
         if (algorithm === 'dijkstra') {
             
-            weightedSearch(pQueue, graph, 20,10,true,cont);
+            weightedSearch(pQueue, graph, 15,7,true,cont);
 
         }
         if (algorithm === 'A-star') {
-            weightedSearch(pQueue, graph,20,10,false,cont);
+            weightedSearch(pQueue, graph,15,7,false,cont);
         }
 
         i=graph.path.length-1;

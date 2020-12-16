@@ -24,7 +24,7 @@ class Queue {
 
 function bfs(queue, graph, frameRate1, frameRate2) {
 
-    frameRate(frameRate1)
+    frameRate(frameRate1) // framerate of the drawing
     var destination = graph.endNode;
     if (!queue.isEmpty() && cont) {
         let currentNode = queue.pop();
@@ -33,9 +33,9 @@ function bfs(queue, graph, frameRate1, frameRate2) {
             
         }
         depth = currentNode.depth;
-        currentNode.isVisited = true;
+        currentNode.isVisited = true; //mark the node as visited to avoid revisiting it
         currentNode.isEmpty = false;
-        currentNode.draw(0);
+
         for (let neighbour of currentNode.neighbours) {
             if (neighbour.depth === -1 && !neighbour.isObstacle) {
                 neighbour.depth = currentNode.depth + 1;
@@ -44,10 +44,10 @@ function bfs(queue, graph, frameRate1, frameRate2) {
             }
         }
     } else {
-        frameRate(frameRate2)
+        frameRate(frameRate2) // change framerate when drawing the solution
         console.log(running);
         let parent;
-        do {
+        do { //adding the path nodes to the path array
             parent = destination.parent;
             destination = parent;
             graph.path.push(parent);
