@@ -10,49 +10,42 @@
 
 <div class="font-myfont">
     <div class="secondaryBanner"></div>
-    <div 
-        id="container" 
-        class="container mx-auto -mt-56 text-center">
-        <div 
-            id = "header"
-            class="w-full mb-4 px-10"> 
-            <h2 
-                class="text-white tracking-wide uppercase text-2xl font-bold sm:text-4xl">
+    <div id="container" class="container mx-auto -mt-56 text-center">
+        <div id="header" class="w-full mb-4 px-10">
+            <h2 class="text-white tracking-wide uppercase text-2xl font-bold sm:text-4xl">
                 Simulation drawing tool
             </h2>
-              <!--Modal Button and Content-->
-            <section 
-                class="p-5">
-                <button id="how-to"
-                  onclick= "document.getElementById('modal1').showModal()"
-                  type="button"
-                  class= "white-button py-3 px-10 bg-white text-blueishPurple-500  rounded-lg uppercase shadow-xl"
-                  >How-To</button>
-            </section>  
-                   
-            <dialog 
-                id= 'modal1'
-                class="p-5  mx-auto  bg-white rounded-md ">
+            <!--Modal Button and Content-->
+            <section class="p-5">
+                <button id="how-to" onclick="document.getElementById('modal1').showModal()" type="button"
+                    class="white-button py-3 px-10 bg-white text-blueishPurple-500  rounded-lg uppercase shadow-xl">How-To</button>
+            </section>
+
+            <dialog id='modal1' class="p-5  mx-auto  bg-white rounded-md ">
                 <div class="flex flex-col w-full ">
                     <!-- Header -->
                     <div class="grid grid-cols-3 mb-2 justify-items-end">
 
-                        <div 
-                            class="col-start-2 mx-auto my-auto h-auto text-2xl font-bold">
+                        <div class="col-start-2 mx-auto my-auto h-auto text-2xl font-bold">
                             How-To
                         </div>
-                        
-                        <div 
-                            onclick="document.getElementById('modal1').close();" 
+
+                        <div onclick="document.getElementById('modal1').close();"
                             class="col-start-3 my-auto  h-auto cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
                         </div>
-                       
+
                         <!--Header End-->
                     </div>
 
                     <!-- Modal Content-->
-                    <div class="flex-none w-full h-auto py-5 px-4 justify-center items-center bg-gray-200 rounded text-center text-gray-500 text-sm md:text-md">
+                    <div
+                        class="flex-none w-full h-auto py-5 px-4 justify-center items-center bg-gray-200 rounded text-center text-gray-500 text-sm md:text-md">
                         1. Generate a graph with number of rows and columns similar to your scenario.
                         <br>
                         <br>
@@ -62,38 +55,30 @@
                         3. Drag to move destination cell colored in purple.
                         <br>
                         <br>
-                         4. Click on a cell to fill it with an obstacle (click again to empty it).
-                         <br>
-                         <br>
+                        4. Click on a cell to fill it with an obstacle (click again to empty it).
+                        <br>
+                        <br>
                         5. Choose an algorithm from the list, and tap solve!
                     </div>
                     <!-- End of Modal Content-->
-                        
+
                 </div>
             </dialog>
-        </div>       
+        </div>
     </div>
 
     <!---MAIN-->
-    <div
-        id = "main" 
-        class="container mx-auto">
-        <div class= "flex flex-col space-y-10 md:flex-row md:justify-center md:space-x-10 md:space-y-0">
-            <div
-                id ="generate-graph" 
-                class="mx-auto md:mx-0 flex-none rounded-lg shadow-lg bg-white 
+    <div id="main" class="container mx-auto">
+        <div class="flex flex-col space-y-10 md:flex-row md:justify-center md:space-x-10 md:space-y-0">
+            <div id="generate-graph" class="mx-auto md:mx-0 flex-none rounded-lg shadow-lg bg-white 
                 w-72">
-                <form 
-                    onsubmit="return false"
-                    id= "generate-form" 
-                    class="p-8">
+                <form onsubmit="return false" id="generate-form" class="p-8">
                     <div id="rowsNcols" class="grid grid-cols-2 gap-6 justify-items-around mb-2">
                         <div>
                             <label class="block uppercase tracking-wide text-blueishPurple-500 text-sm mb-1"
                                 for="rows">Rows
                             </label>
-                            <input
-                                id="rows"
+                            <input id="rows"
                                 class="block w-full bg-white text-gray-700 text-sm border border-gray-700 rounded-md py-1 px-1"
                                 type="number" name="rows" step="1" min="0" max="50" value="15" />
                         </div>
@@ -101,8 +86,7 @@
                             <label class="block uppercase tracking-wide text-blueishPurple-500 text-sm mb-1"
                                 for="cols">Columns
                             </label>
-                            <input
-                                id="cols"
+                            <input id="cols"
                                 class="block w-full bg-white text-gray-700 text-sm border border-gray-700 rounded-md py-1 px-1"
                                 type="number" name="columns" step="1" min="0" max="50" value="15" />
                         </div>
@@ -113,12 +97,10 @@
                             <label for="source"
                                 class="block uppercase tracking-wide text-blueishPurple-500 text-sm mb-1">Source</label>
                             <div id="source" class="grid grid-cols-2 gap-1 justify-items-around">
-                                <input
-                                    id="sourceX"
+                                <input id="sourceX"
                                     class="w-12 bg-white text-gray-700 text-sm border border-gray-700 rounded-md py-1 px-1"
                                     name="sourceX" type="number" placeholder="x" value="2" min="0" max="49" />
-                                <input
-                                    id="sourceY"
+                                <input id="sourceY"
                                     class="w-12 bg-white text-gray-700 text-sm border border-gray-700 rounded-md py-1 px-1"
                                     name="sourceY" type="number" placeholder="y" value="1" min="0" max="49" />
                             </div>
@@ -127,12 +109,10 @@
                             <label for="dest"
                                 class="block uppercase tracking-wide text-blueishPurple-500 text-sm mb-1">Destination</label>
                             <div id="dest" class="grid grid-cols-2 gap-1 justify-items-around">
-                                <input
-                                    id="destX"
+                                <input id="destX"
                                     class="w-12 bg-white text-gray-700 text-sm border border-gray-700 rounded-md py-1 px-1"
                                     name="destX" type="number" placeholder="x" value="7" min="0" max="49" />
-                                <input
-                                    id="destY"
+                                <input id="destY"
                                     class="w-12 bg-white text-gray-700 text-sm border border-gray-700 rounded-md py-1 px-1"
                                     name="destY" type="number" placeholder="y" value="7" min="0" max="49" />
                             </div>
@@ -140,9 +120,7 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-5 justify-items-between mb-4">
-                        <button  
-                            id="generate"
-                            type="submit"
+                        <button id="generate" type="submit"
                             class="solid-button text-white text-sm uppercase py-2 px-2 rounded-lg" type="submit">
                             Generate
                         </button>
@@ -154,117 +132,194 @@
                     </div>
                 </form>
             </div>
-            
-            <div
-                id ="board-holder"
-                class="mx-auto md:mx-0 flex-none rounded-lg shadow-lg bg-white border border-b-4 border-blueishPurple-500 
+
+            <div id="board-holder" class="mx-auto md:mx-0 flex-none rounded-lg shadow-lg bg-white border border-b-4 border-blueishPurple-500 
                 w-auto overflow-hidden">
-            <!-- Column Content -->
+                <!-- Column Content -->
             </div>
-        
-            <div 
-                id = "algo-choice"
-                class="mx-auto md:mx-0 flex-none rounded-lg shadow-lg bg-white 
+
+            <div id="algo-choice" class="mx-auto md:mx-0 flex-none rounded-lg shadow-lg bg-white 
                 w-72 ">
-                <form 
-                    class="p-8"
-                >
+                <form class="p-8">
                     <div class="flex mb-3 space-x-0 justify-between ">
-                        <div class ="flex-none" >
+                        <div class="flex-none">
                             <label for="algorithm"
                                 class="block uppercase tracking-wide text-blueishPurple-500 text-sm mb-1">
                                 Algorithm</label>
-                            <select id="algorithm"
-                                style="padding-top: 0.35rem; padding-bottom: 0.35rem;"
+                            <select id="algorithm" style="padding-top: 0.35rem; padding-bottom: 0.35rem;"
                                 class="w-48 bg-white text-gray-700 text-sm border border-gray-700 rounded-md  px-1">
-                                <option value="A-star"selected="selected">A*</option>
-                                <option value="bfs" >
+                                <option value="A-star" selected="selected">A*</option>
+                                <option value="bfs">
                                     Breadth-first search
                                 </option>
                                 <option value="dijkstra">Dijkstra</option>
                             </select>
                         </div>
                         <div class="flex-none pt-8">
-                        <!--Modal Button and Content-->
+                            <!--Modal Button and Content-->
                             <section class="flex justify-center items-start">
-                                <button id="algo-info"
-                                onclick= "document.getElementById('modal2').showModal()"
-                                type="button"
-                                class= "white-button fa bg-transparent text-blueishPurple-500 text-lg rounded-lg uppercase shadow-xl"
-                                >&#xf05a;</button>
-                            </section>  
-                            <dialog 
-                                id= 'modal2'
-                                class="p-5  mx-auto  bg-white rounded-md ">
+                                <button id="algo-info" onclick="document.getElementById('modal2').showModal()"
+                                    type="button"
+                                    class="white-button fa bg-transparent text-blueishPurple-500 text-lg rounded-lg uppercase shadow-xl">&#xf05a;</button>
+                            </section>
+                            <dialog id='modal2' class="p-5  mx-auto  bg-white rounded-md ">
                                 <div class="flex flex-col w-full ">
                                     <!-- Header -->
                                     <div class="grid grid-cols-3 mb-2 justify-items-end">
 
-                                        <div 
-                                            class="col-start-2 mx-auto my-auto h-auto text-2xl font-bold">
+                                        <div class="col-start-2 mx-auto my-auto h-auto text-2xl font-bold">
                                             Pathfinding Algorithms
                                         </div>
-                                        
-                                        <div 
-                                            onclick="document.getElementById('modal2').close();" 
+
+                                        <div onclick="document.getElementById('modal2').close();"
                                             class="col-start-3 my-auto  h-auto cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-x">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
                                         </div>
-                                    
+
                                         <!--Header End-->
                                     </div>
 
                                     <!-- Modal Content-->
-                                    <div class="flex-none w-full h-auto py-5 px-4 justify-center items-center bg-gray-200 rounded text-center text-gray-500 text-sm md:text-md">
+                                    <div
+                                        class="flex-none w-full h-auto py-5 px-4 justify-center items-center bg-gray-200 rounded text-center text-gray-500 text-sm md:text-md">
                                         A*:
-                                        <br> 
-                                        An informed or guided weighted algorithm, that means it can work on graphs with non uniform distances and is considered one of the fastest path finding algorithms
+                                        <br>
+                                        An informed or guided weighted algorithm, that means it can work on graphs with
+                                        non uniform distances and is considered one of the fastest path finding
+                                        algorithms
                                         <br>
                                         <br>
-                                        BFS: 
-                                        <br> An unweighted algorithm, cannot be used on graphs unless they have uniform distances, uninformed, so it explores all possible solutions.
+                                        BFS:
+                                        <br> An unweighted algorithm, cannot be used on graphs unless they have uniform
+                                        distances, uninformed, so it explores all possible solutions.
                                         <br>
                                         <br>
-                                        Dijkstra: 
-                                        <br> A weighted algorithm, can be used on graphs with non uniform distances, uninformed, so it will explore all possible solutions.
+                                        Dijkstra:
+                                        <br> A weighted algorithm, can be used on graphs with non uniform distances,
+                                        uninformed, so it will explore all possible solutions.
                                     </div>
                                     <!-- End of Modal Content-->
-                                        
+
                                 </div>
-                            </dialog> 
+                            </dialog>
                         </div>
-                        
+
                     </div>
                     <div class="grid grid-cols-2 gap-5 justify-items-between mb-6">
-                        <button 
-                            id="solve" type="button"
+                        <button id="solve" type="button"
                             class="solid-button text-white text-sm uppercase py-2 px-2 rounded-lg" type="submit">
                             Solve
                         </button>
-                        <button id="stop"
-                            disabled
+                        <button id="stop" disabled
                             class="white-button  text-blueishPurple-500 border border-gray-700  text-sm uppercase py-2 px-2 rounded-lg"
                             type="button">
                             Stop
                         </button>
-                        <button id="clear-graph"
-                            style="visibility:hidden; display:none;"
+                        <button id="clear-graph" style="visibility:hidden; display:none;"
                             class="white-button text-blueishPurple-500 border border-gray-700  text-sm uppercase py-2 px-2 rounded-lg"
                             type="button">
                             Clear
                         </button>
                     </div>
                     <div>
-                        <button id="connect" 
+                        <button 
+                            id="connectModalButton" disabled
                             class="solid-button text-white w-full text-sm uppercase py-3 px-2 rounded-lg"
-                            type="button">
+                            type="button" onclick="document.getElementById('connectModal').showModal()">
                             Connect & RUN
                         </button>
+
+                        <dialog id='connectModal' class="p-5  mx-auto w-2/3 bg-white rounded-md ">
+                            <div class="flex flex-col w-full ">
+                                <!-- Header -->
+                                <div class="grid grid-cols-3 mb-2 justify-items-end">
+
+                                    <div class="col-start-2 mx-auto my-auto h-auto text-2xl font-bold">
+                                        Connect & Run
+                                    </div>
+
+                                    <div onclick="document.getElementById('connectModal').close();"
+                                        class="col-start-3 my-auto  h-auto cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </div>
+
+                                    <!--Header End-->
+                                </div>
+
+                                <!-- Modal Content-->
+                                <div id="instructions"
+                                    class="flex-none w-full h-auto py-5 px-4 justify-center items-center bg-gray-200 rounded text-center text-gray-500 text-sm md:text-md">
+                                    1. Setup your robot web server to recieve an object containing a string as post
+                                    request and extract data
+                                    from it.
+                                    <br>
+                                    You can refer to the Github repository for the source code for ESP8266 module.
+                                    <br>
+                                    <br>
+                                    2. Retrieve the IP address of the robot web server and enter it in the box below
+                                    <br>
+                                    <br>
+                                    3. Make sure to setup your robot to move according to the instructions (the string
+                                    received by the server)
+                                    <br>
+                                    <br>
+                                    4. The instructions string is setup so that each character represents a direction
+                                    out of eight directions
+                                    and the string ends in a capital S which means end of instructions and Stop.
+                                    <br>
+                                    <br>
+                                    The directions representation follow the keyboard layout where:
+                                    <br>
+                                    a: Left, d: Right, w: Forward, x: Backward,
+                                    <br>
+                                    q: Left-Forward, e: Right-Forward, z: Left-Backward, c: Right-Backward
+                                    <br>
+                                    <br>
+                                    5. The robot should move according to the instructions given, which are also
+                                    relative to the robot's
+                                    position at a given point, it's up to you how you decide to implement this, you can
+                                    use a compass for example.
+                                    <br>
+                                    <br>
+                                    6. Now that you're done setting everything up, enter the full address for the robot
+                                    web server, and make sure you enable cross-origin resource sharing (CORS) for that server.
+                                    <br>
+                                    to be able to recieve the POST request and then tap the "Connect" button below.
+
+                                </div>
+                                <form action="">
+                                    <input  
+                                        required id="address"
+                                        class="block w-full bg-white text-gray-700 text-sm border border-gray-700 
+                                        rounded-md py-4 px-4 mb-4"
+                                        placeholder="Server address, example: http://192.168.0.10/">
+                                    <button id="connect"
+                                        class="solid-button text-white w-full text-sm uppercase py-3 px-2 rounded-lg"
+                                        type="button">
+                                        Connect & RUN
+                                    </button>
+                                </form>
+
+                                <!-- End of Modal Content-->
+
+                            </div>
+                        </dialog>
                     </div>
                 </form>
             </div>
         </div>
-      
+
     </div>
 
 </div>

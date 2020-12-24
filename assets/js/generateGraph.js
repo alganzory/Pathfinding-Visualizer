@@ -100,6 +100,7 @@ clearGraphButton.addEventListener('click', function(e){
 })
 // clearGraphButton.addEventListener()
 
+const connectModalButton = document.querySelector('#connectModalButton')
 function defaultButtonStates () {
     clearGraphButton.style.visibility = "hidden"
     clearGraphButton.style.display="none";
@@ -107,6 +108,7 @@ function defaultButtonStates () {
     stopButton.style.visibility = "visible"
     stopButton.disabled=true;
     solveButton.disabled=false;
+    connectModalButton.disabled = true;
     loop();
 }
 
@@ -115,6 +117,7 @@ function stopOrEnd() {
     stopButton.style.display="none";
     clearGraphButton.style.display="block";
     clearGraphButton.style.visibility = "visible"
+    connectModalButton.disabled = false;
 }
 
 const connectButton = document.querySelector("#connect");
@@ -122,10 +125,12 @@ connectButton.addEventListener('click', function (e) {
     let directions = getDirectionsFromPath();
     console.log(directions);
     var xhr = new XMLHttpRequest();
-    var url = "http://192.168.8.100/path";
+    
+
+    var url =  document.querySelector('#address').value;
+    console.log(url);
     xhr.open("POST", url);
-    var data = {path:"wxdaswxdaS"};
-    xhr.send(JSON.stringify(data));
+    xhr.send(JSON.stringify(directions));
     console.log("DONE");
 
 })
